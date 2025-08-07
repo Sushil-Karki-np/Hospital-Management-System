@@ -1,0 +1,24 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Search Patient by First Name</h2>
+    <form method="post" class="form-inline">{% csrf_token %}
+        <input type="text" name="query" placeholder="Enter First Name" class="form-control mr-2" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if result %}
+        <h4 class="mt-4">Result:</h4>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Name:</strong> {{ result.get_name }}</li>
+            <li class="list-group-item"><strong>Symptoms:</strong> {{ result.symptoms }}</li>
+            <li class="list-group-item"><strong>Mobile:</strong> {{ result.mobile }}</li>
+            <li class="list-group-item"><strong>Address:</strong> {{ result.address }}</li>
+        </ul>
+    {% elif query %}
+        <p class="mt-4 text-danger">No patient found with the name "{{ query }}"</p>
+    {% endif %}
+</div>
+
+{% endblock %}
